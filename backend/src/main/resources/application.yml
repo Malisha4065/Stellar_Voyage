@@ -1,0 +1,46 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://keen-owlet-ksh.gcp-asia-south1.cockroachlabs.cloud:26257/stellar_voyage
+    username: ${DBUSERNAME}
+    password: ${DBPASSWORD}
+    driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp-relay.brevo.com
+    port: 587
+    username: ${SMTPUSERNAME}
+    password: ${SMTPPASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    locations: classpath:db/migrations
+    baseline-on-migrate: true
+    schemas: public
+    url: jdbc:postgresql://keen-owlet-ksh.gcp-asia-south1.cockroachlabs.cloud:26257/stellar_voyage
+    user: ${DBUSERNAME}
+    password: ${DBPASSWORD}
+    enabled: false
+
+application:
+  security:
+    jwt:
+      secret-key: 357638792F423F4528482B4D6251655468576D597133743677397A2443264629
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
